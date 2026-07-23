@@ -1,0 +1,235 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Lora:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+:root {
+  --paper: #fbf6ee;
+  --paper-shadow: #efe6d4;
+  --ink: #2b2420;
+  --ink-soft: #5a5045;
+  --seal: #8c2f39;
+  --seal-soft: #c97b84;
+  --line: #d8cdbb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper-shadow);
+  color: var(--ink);
+  font-family: "Lora", serif;
+}
+
+#root {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+}
+
+.title {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 2.4rem;
+  letter-spacing: -0.01em;
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  margin-bottom: 40px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 760px) {
+  .layout {
+    grid-template-columns: 320px 1fr;
+    align-items: start;
+  }
+}
+
+.card {
+  background: var(--paper);
+  border-radius: 3px;
+  padding: 24px;
+  box-shadow: 0 1px 0 var(--line), 0 12px 24px -18px rgba(43, 36, 32, 0.4);
+}
+
+/* --- Calendar --- */
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+}
+
+.cal-nav-btn {
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 4px 10px;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.cal-nav-btn:hover {
+  border-color: var(--seal);
+  color: var(--seal);
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.cal-dow {
+  text-align: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.65rem;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  padding-bottom: 4px;
+}
+
+.cal-day {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--ink);
+}
+
+.cal-day:hover {
+  border-color: var(--line);
+}
+
+.cal-day.empty {
+  cursor: default;
+}
+
+.cal-day.has-entry::after {
+  content: "";
+  position: absolute;
+  bottom: 5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--seal);
+}
+
+.cal-day.selected {
+  background: var(--seal);
+  color: var(--paper);
+}
+
+.cal-day.selected.has-entry::after {
+  background: var(--paper);
+}
+
+/* --- Entry form --- */
+textarea.letter-input {
+  width: 100%;
+  min-height: 220px;
+  font-family: "Lora", serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  resize: vertical;
+  outline: none;
+}
+
+.entry-date-label {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--seal);
+  margin-bottom: 8px;
+}
+
+.send-btn {
+  margin-top: 16px;
+  background: var(--seal);
+  color: var(--paper);
+  border: none;
+  padding: 10px 22px;
+  border-radius: 3px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.send-btn:hover {
+  background: var(--seal-soft);
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.status-msg {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.8rem;
+  margin-top: 12px;
+  color: var(--ink-soft);
+}
+
+.status-msg.error {
+  color: var(--seal);
+}
+
+/* --- Letter view --- */
+.letter-view {
+  animation: fadein 0.25s ease;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.letter-body {
+  white-space: pre-wrap;
+  font-size: 1.1rem;
+  line-height: 1.75;
+  font-style: italic;
+}
+
+.letter-empty {
+  color: var(--ink-soft);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+}
