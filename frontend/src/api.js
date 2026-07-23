@@ -1,4 +1,4 @@
-const BASE = "/api";
+const BASE = "https://journal-backend-bch1.onrender.com/api";
 
 export async function submitEntry(date, text) {
   const res = await fetch(`${BASE}/entries`, {
@@ -12,14 +12,12 @@ export async function submitEntry(date, text) {
   }
   return data;
 }
-
 export async function fetchEntryDates() {
   const res = await fetch(`${BASE}/entries/dates`);
   if (!res.ok) throw new Error("Failed to fetch dates");
   const data = await res.json();
   return data.dates;
 }
-
 export async function fetchEntry(date) {
   const res = await fetch(`${BASE}/entries/${date}`);
   if (res.status === 404) return null;
